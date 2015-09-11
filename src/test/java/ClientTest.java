@@ -1,5 +1,6 @@
+/*
 import org.junit.Test;
-import static org.junit.Assert.*;
+        import org.junit.Assert.*;
 
 public class ClientTest {
 
@@ -7,7 +8,7 @@ public class ClientTest {
     public void testPasses() {
         String expected = "Hello, JUnit!";
         String hello = "Hello, JUnit!";
-        assertEquals(hello, expected);
+        this.assertEquals(hello, expected);
     }
 
     @Test
@@ -22,4 +23,4 @@ public class ClientTest {
         int [] array2 = new int[] {1, 2, 3};
         assertArrayEquals(array1, array2);
     }
-}
+}*/
