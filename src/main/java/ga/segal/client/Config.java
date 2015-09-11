@@ -21,6 +21,7 @@ public class Config {
 
         Properties prop = new Properties();
         FileInputStream input = null;
+        System.out.println("Loading config...");
         try {
 
             String filename = "config.properties";
