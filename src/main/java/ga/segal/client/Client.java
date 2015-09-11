@@ -11,6 +11,7 @@ public class Client {
 
         String parameters[] = {"", ""};
         String file_name = "config.properties";
+        String cache_folder = "cache";
 
         Client cl = new Client();
         try {
@@ -29,6 +30,11 @@ public class Client {
         String path = parameters[1];
 
         System.out.printf("Running with interval %s seconds on file %s%n", interval, path);
+
+        ReadLog logfile = new ReadLog();
+        logfile.CheckCacheFolder(cache_folder);
+
+        System.out.println(System.getProperty("os.name"));
 
         ShutdownHook stophook = new ShutdownHook();
         stophook.attachShutDownHook();
