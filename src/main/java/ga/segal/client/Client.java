@@ -26,14 +26,14 @@ public class Client {
             System.out.printf("Unable to find config, stack trace: %s%n", e.getMessage());
             System.exit(1);
         }
-        System.out.printf("Success: %s %s%n",parameters[0],parameters[1]);
 
-        /*int interval = cf.GetInterval() * 60;
-        String path = cf.GetPath();
-        System.out.printf("Running on: %s at interval %d seconds%n", path, interval);
-*/
-        /*int i = 0;
-        while (running) {
+        int interval = Integer.parseInt(parameters[0]) * 60;
+        String path = parameters[1];
+
+        System.out.printf("Running with interval %s seconds on file %s%n",interval,path);
+
+        int i = 0;
+        while (true) {
             System.out.println("count=" + i);
             i++;
             try {
@@ -41,7 +41,7 @@ public class Client {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     private String[] Config(String filename) throws Exception {
