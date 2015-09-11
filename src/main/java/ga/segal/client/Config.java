@@ -3,7 +3,7 @@ package ga.segal.client;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.util.Properties;
-import java.lang.Throwable;
+//import java.lang.Throwable;
 
 /**
  * Created by Sasha on 9/4/2015.
@@ -38,9 +38,8 @@ public class Config {
             interval = Integer.parseInt(prop.getProperty("interval"));
             path = prop.getProperty("path");
 
-            //} catch (IOException ex) {
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return;
         } finally{
             if(input!=null){
