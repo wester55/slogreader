@@ -17,7 +17,7 @@ public class Client {
     public static void main(String[] args) {
 
         String parameters[] = {"",""};
-        String file_name = "config.properties";
+        String file_name = "src/main/config.properties";
 
         Client cl = new Client();
         try {
