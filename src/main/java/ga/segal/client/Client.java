@@ -10,14 +10,19 @@ public class Client {
     public static void main(String[] args) {
 
         String parameters[] = {"", ""};
-        String file_name = "src/main/config.properties";
+        String file_name = "config.properties";
 
         Client cl = new Client();
         try {
-            parameters = cl.Config(file_name);
+            parameters = cl.Config(file_name,0);
         } catch (Exception e) {
-            System.out.printf("Unable to find config, stack trace: %s%n", e.getMessage());
-            System.exit(1);
+            try {
+                parameters = cl.Config(file_name,1);
+            } catch (Exception ee) {
+                System.out.printf("Unable to find config, stack trace: %s%n", ee.getMessage());
+                System.exit(1);
+            }
+            System.out.println("Found config file " + file_name);
         }
 
         int interval = Integer.parseInt(parameters[0]) * 60;
@@ -39,12 +44,20 @@ public class Client {
         }
 }
 
-    private String[] Config(String filename) throws Exception {
+    private String[] Config(String filename, int config_in_main_dir) throws Exception {
 
         String interval;
         String path;
         Properties prop = new Properties();
-        FileInputStream input = new FileInputStream(filename);
+        FileInputStream input;
+        switch (config_in_main_dir) {
+            case (0):
+                input = new FileInputStream("config/" + filename);
+                break;
+            default:
+                input = new FileInputStream(filename);
+                break;
+        }
         System.out.println("Loading config...");
         prop.load(input);
         interval = prop.getProperty("interval");
