@@ -1,6 +1,7 @@
 package ga.segal.client;
 
 import java.io.IOException;
+import java.lang.Throwable;
 
 
 /**
@@ -16,8 +17,9 @@ public class Client {
         Config cf = new Config();
         try {
             cf.GetConfig();
-        } catch (IOException ex){
-            System.out.printf("Unable to find config, stack trace: %s%n", ex.getMessage());
+            //} catch (IOException ex){
+            } catch (Throwable e) {
+            System.out.printf("Unable to find config, stack trace: %s%n", e.getMessage());
             System.exit(1);
         }
         int interval = cf.GetInterval() * 60;
