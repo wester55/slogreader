@@ -29,12 +29,15 @@ public class Client {
         int interval = Integer.parseInt(parameters[0]) * 60;
         String path = parameters[1];
 
+        String os = System.getProperty("os.name");
+        if (os == "Windows 7") {
+            path = "full";
+        }
+
         System.out.printf("Running with interval %s seconds on file %s%n", interval, path);
 
         ReadLog logfile = new ReadLog();
         logfile.CheckCacheFolder(cache_folder);
-
-        System.out.println(System.getProperty("os.name"));
 
         ShutdownHook stophook = new ShutdownHook();
         stophook.attachShutDownHook();
