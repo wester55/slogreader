@@ -3,6 +3,7 @@ package ga.segal.client;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.lang.Throwable;
 
 /**
  * Created by Sasha on 9/4/2015.
@@ -26,7 +27,7 @@ public class Config {
 
             String filename = "config.properties";
             input = new FileInputStream(filename);
-            if(input==null){
+            if (input == null) {
                 System.out.println("Sorry, unable to find " + filename);
                 return;
             }
@@ -37,8 +38,10 @@ public class Config {
             interval = Integer.parseInt(prop.getProperty("interval"));
             path = prop.getProperty("path");
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            //} catch (IOException ex) {
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return;
         } finally{
             if(input!=null){
                 try {
