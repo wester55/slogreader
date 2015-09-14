@@ -32,7 +32,7 @@ public class Client {
         }
 
         int interval = Integer.parseInt(parameters[0]) * 60;
-        String path = parameters[1];
+        String path = parameters[1].replaceAll("^\"|\"$", "");
 
         String os = System.getProperty("os.name");
         if (os.equals("Windows 7")) {
