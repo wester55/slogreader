@@ -2,10 +2,16 @@ package ga.segal.client;
 
 import java.lang.Exception;
 import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.File;
 import java.util.Properties;
 
 public class Client {
 
+    private static long position;
+    private static String cache_folder;
     private static volatile boolean keepRunning = true;
     public static void main(String[] args) {
 
@@ -30,20 +36,25 @@ public class Client {
 
         String os = System.getProperty("os.name");
         if (os.equals("Windows 7")) {
-            path = "full";
+            path = "short";
         }
 
         System.out.printf("Running with interval %s seconds on file %s%n", interval, path);
 
-        String cache_folder = ReadLog.MakeCacheFolder();
+        cache_folder = ReadLog.MakeCacheFolder();
+        String position_path = cache_folder + File.separator + "position";
 
         ShutdownHook shook = new ShutdownHook();
         shook.attachShutDownHook();
-        int i = 0;
+
         try {
             while (keepRunning) {
-                System.out.println("count=" + i);
-                i++;
+                ReadPosition(position_path);
+                System.out.printf("Reading from position %d%n", position);
+                long newpos = ReadLog.FetchLines(path,position,cache_folder);
+                if (newpos != position ) {
+                   WritePosition(position_path,newpos);
+                }
                 Thread.sleep(100 * interval);
             }
         } catch (InterruptedException e) {
@@ -72,4 +83,33 @@ public class Client {
         return new String[]{interval, path};
     }
 
+    static void ReadPosition (String Filename) {
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(Filename));
+            position = Long.parseLong(br.readLine());
+        } catch (Exception e) {
+            File pf = new File(cache_folder + File.separator + "position");
+            boolean exists = pf.exists();
+            if (!exists) {
+                position = 0;
+            } else {
+                System.out.printf("Unable to read position from cache folder %s%n", e.getMessage());
+                System.exit(1);
+            }
+        }
+    }
+
+    static void WritePosition(String Filename, Long NewPos) {
+
+        try {
+            PrintWriter pr = new PrintWriter(Filename,"UTF-8");
+            pr.println(Long.toString(NewPos));
+            pr.close();
+        } catch (Exception e) {
+            System.out.printf("Unable to write position, check your cache folder settings. %s", e.getMessage());
+            System.exit(1);
+        }
+        position = NewPos;
+    }
 }
