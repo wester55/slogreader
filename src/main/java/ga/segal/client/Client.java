@@ -83,7 +83,7 @@ public class Client {
         return new String[]{interval, path};
     }
 
-    static void ReadPosition (String Filename) {
+    static private void ReadPosition (String Filename) {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(Filename));
@@ -100,7 +100,7 @@ public class Client {
         }
     }
 
-    static void WritePosition(String Filename, Long NewPos) {
+    static private void WritePosition(String Filename, Long NewPos) {
 
         try {
             PrintWriter pr = new PrintWriter(Filename,"UTF-8");

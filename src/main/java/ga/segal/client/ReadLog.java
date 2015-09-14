@@ -20,8 +20,8 @@ public class ReadLog {
         if (!exists){
             System.out.println("Cache folder not exists, creating new one in " + tmp_folder);
             try {
+                //noinspection ResultOfMethodCallIgnored
                 new File(cfolder).mkdir();
-
             } catch (Exception e) {
                 System.out.println("Unable create cache folder in " + tmp_folder);
                 System.exit(1);
@@ -38,6 +38,7 @@ public class ReadLog {
         }
         try {
             File file = new File(tfile);
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
         } catch (Exception e) {
             System.out.printf("Unable to remove files in cache folder %s%n", e.getMessage());
@@ -53,6 +54,7 @@ public class ReadLog {
         ArrayList<String> lines = new ArrayList<>();
         long startPos = StartPosition;
         try {
+            System.out.println(Filename + " " + StartPosition + " " + CacheFolder);
             RandomAccessFile fl = new RandomAccessFile( Filename, "r" );
             long fileLength = fl.length();
             if( fileLength < startPos )
