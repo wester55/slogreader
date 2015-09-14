@@ -9,7 +9,7 @@ public class ReadLog {
     static String MakeCacheFolder () {
 
         String tmp_folder = System.getProperty("java.io.tmpdir");
-        String cfolder = tmp_folder + "cache";
+        String cfolder = tmp_folder + File.separator + "cache";
         String tfile = cfolder + File.separator + ".testfile";
 
         System.out.println("Checking cache folder " + cfolder + " is writable...");
