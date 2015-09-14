@@ -6,12 +6,11 @@ import java.util.Properties;
 
 public class Client {
 
-    static volatile boolean keepRunning = true;
+    private static volatile boolean keepRunning = true;
     public static void main(String[] args) {
 
         String parameters[] = {"", ""};
         String file_name = "config.properties";
-        String cache_folder = "cache";
 
         Client cl = new Client();
         try {
@@ -30,17 +29,16 @@ public class Client {
         String path = parameters[1];
 
         String os = System.getProperty("os.name");
-        if (os == "Windows 7") {
+        if (os.equals("Windows 7")) {
             path = "full";
         }
 
         System.out.printf("Running with interval %s seconds on file %s%n", interval, path);
 
-        ReadLog logfile = new ReadLog();
-        logfile.CheckCacheFolder(cache_folder);
+        String cache_folder = ReadLog.MakeCacheFolder();
 
-        ShutdownHook stophook = new ShutdownHook();
-        stophook.attachShutDownHook();
+        ShutdownHook shook = new ShutdownHook();
+        shook.attachShutDownHook();
         int i = 0;
         try {
             while (keepRunning) {
